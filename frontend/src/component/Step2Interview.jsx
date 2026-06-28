@@ -146,24 +146,23 @@ export default function Step2Interview({ interviewData, onFinish }) {
     <div className="min-h-screen bg-slate-100 p-4 sm:p-6 lg:p-8">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
-          {/* ================= LEFT - AI VIDEO ================= */}
+          {/* LEFT SIDE */}
           <div className="bg-white rounded-3xl shadow-xl overflow-hidden flex flex-col">
-            <div className="bg-blue-600 py-4 px-4 sm:px-6">
+            <div className="bg-blue-600 py-4 px-6">
               <h2 className="text-white text-xl sm:text-2xl font-bold flex items-center justify-center gap-3">
-                <FaRobot className="text-xl" /> AI Interviewer
+                <FaRobot />
+                AI Interviewer
               </h2>
             </div>
 
-            <div className="flex-1 flex flex-col p-4 sm:p-6">
-              <div className="relative">
-                <video
-                  ref={videoRef}
-                  src={femaleVideo}
-                  muted
-                  playsInline
-                  className="w-full aspect-video rounded-2xl object-cover bg-black"
-                />
-              </div>
+            <div className="p-4 sm:p-6 flex flex-col flex-1">
+              <video
+                ref={videoRef}
+                src={femaleVideo}
+                muted
+                playsInline
+                className="w-full aspect-video object-cover rounded-2xl bg-black"
+              />
 
               <div className="mt-6 flex justify-center">
                 <Timer
@@ -174,115 +173,105 @@ export default function Step2Interview({ interviewData, onFinish }) {
                 />
               </div>
 
-              {/* Stats */}
               <div className="grid grid-cols-2 gap-4 mt-8">
-                <div className="bg-blue-50 rounded-xl p-4 sm:p-5 text-center">
+                <div className="bg-blue-50 rounded-xl p-5 text-center">
                   <FaRegClock className="mx-auto text-blue-600 text-3xl mb-2" />
                   <h2 className="text-3xl font-bold text-blue-700">
                     {currentIndex + 1}
                   </h2>
-                  <p className="text-gray-600 text-sm">Current Question</p>
+                  <p className="text-gray-700">Current Question</p>
                 </div>
-                <div className="bg-green-50 rounded-xl p-4 sm:p-5 text-center">
+
+                <div className="bg-green-50 rounded-xl p-5 text-center">
                   <FaCheckCircle className="mx-auto text-green-600 text-3xl mb-2" />
                   <h2 className="text-3xl font-bold text-green-700">
                     {questions.length}
                   </h2>
-                  <p className="text-gray-600 text-sm">Total Questions</p>
+                  <p className="text-gray-700">Total Questions</p>
                 </div>
               </div>
 
-              {/* AI Speaking Subtitle */}
               {isAIPlaying && (
-                <div className="mt-6 bg-blue-100 rounded-xl p-4 sm:p-5">
-                  <h3 className="font-bold text-blue-700 flex items-center gap-2">
-                    🤖 AI Speaking...
-                  </h3>
-                  <p className="mt-3 text-blue-700 leading-relaxed text-sm sm:text-base">
-                    {subtitle}
-                  </p>
+                <div className="mt-6 bg-blue-100 rounded-xl p-5">
+                  <h3 className="font-bold text-blue-700">🤖 AI Speaking...</h3>
+
+                  <p className="mt-3 text-blue-700">{subtitle}</p>
                 </div>
               )}
             </div>
           </div>
 
-          {/* ================= RIGHT - USER SIDE ================= */}
-          <div className="bg-white rounded-3xl shadow-xl p-5 sm:p-8 flex flex-col">
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
-              AI Smart Interview
-            </h1>
-            <p className="text-gray-500 mt-1">
+          {/* RIGHT SIDE */}
+          <div className="bg-white rounded-3xl shadow-xl p-5 sm:p-8 flex flex-col text-gray-900">
+            <h1 className="text-3xl font-bold">AI Smart Interview</h1>
+
+            <p className="text-gray-700 mt-2">
               Welcome <span className="font-semibold">{userName}</span>
             </p>
 
-            {/* Question */}
-            <div className="mt-6 sm:mt-8 bg-slate-100 rounded-xl p-5 sm:p-6">
-              <h2 className="text-blue-600 font-bold text-sm uppercase tracking-widest">
-                Question {currentIndex + 1} / {questions.length}
+            <div className="mt-8 bg-slate-100 rounded-xl p-5">
+              <h2 className="text-blue-600 font-bold">
+                Question {currentIndex + 1}/{questions.length}
               </h2>
-              <p className="mt-4 text-lg sm:text-xl font-semibold leading-relaxed text-gray-800">
+
+              <p className="mt-4 text-xl font-semibold text-black">
                 {currentQuestion?.question}
               </p>
             </div>
 
-            {/* Answer Area */}
             <div className="mt-6 flex-1 flex flex-col">
-              <label className="font-semibold block mb-2 text-gray-700">
+              <label className="font-semibold mb-2 text-gray-800">
                 Your Answer
               </label>
+
               <textarea
                 rows={8}
                 value={answer}
                 onChange={(e) => setAnswer(e.target.value)}
-                placeholder="Type or speak your answer here..."
-                className="flex-1 w-full border rounded-2xl p-4 resize-none outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-200 text-base"
+                placeholder="Type or speak your answer..."
+                className="flex-1 w-full border rounded-xl p-4 bg-white text-black placeholder:text-gray-500 outline-none focus:ring-2 focus:ring-blue-300"
               />
             </div>
 
-            {/* Voice Controls */}
-            <div className="grid grid-cols-2 gap-4 mt-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-5">
               <button
                 onClick={startListening}
                 disabled={isListening}
-                className="bg-green-600 hover:bg-green-700 disabled:bg-gray-400 text-white rounded-2xl py-3.5 flex items-center justify-center gap-2 transition font-medium active:scale-95"
+                className="bg-green-600 hover:bg-green-700 text-white rounded-xl py-3"
               >
-                <FaMicrophone /> Start Speaking
+                <FaMicrophone className="inline mr-2" />
+                Start Speaking
               </button>
+
               <button
                 onClick={stopListening}
                 disabled={!isListening}
-                className="bg-red-600 hover:bg-red-700 disabled:bg-gray-400 text-white rounded-2xl py-3.5 flex items-center justify-center gap-2 transition font-medium active:scale-95"
+                className="bg-red-600 hover:bg-red-700 text-white rounded-xl py-3"
               >
-                <FaStop /> Stop Speaking
+                <FaStop className="inline mr-2" />
+                Stop Speaking
               </button>
             </div>
 
             {isListening && (
-              <div className="mt-4 bg-red-100 text-red-700 rounded-xl p-4 text-center font-semibold text-sm">
-                🎤 Listening... Speak now
+              <div className="mt-4 bg-red-100 rounded-xl p-4 text-red-700 font-semibold text-center">
+                🎤 Listening...
               </div>
             )}
 
-            {/* Feedback */}
             {feedback && (
-              <div className="mt-5 bg-green-50 border border-green-200 rounded-xl p-5">
+              <div className="mt-5 bg-green-50 border border-green-300 rounded-xl p-5">
                 <h3 className="font-bold text-green-700">AI Feedback</h3>
-                <p className="mt-2 text-green-800">{feedback}</p>
+
+                <p className="mt-2 text-gray-800">{feedback}</p>
               </div>
             )}
 
-            {isSubmitting && (
-              <div className="mt-6 text-center text-blue-600 font-semibold">
-                Evaluating your answer...
-              </div>
-            )}
-
-            {/* Action Buttons */}
-            <div className="grid grid-cols-2 gap-4 mt-auto pt-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
               <button
                 onClick={handleManualSubmit}
                 disabled={isSubmitting || !answer.trim()}
-                className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white py-3.5 rounded-2xl font-semibold transition active:scale-95"
+                className="bg-blue-600 hover:bg-blue-700 text-white rounded-xl py-3"
               >
                 Submit Answer
               </button>
@@ -290,7 +279,7 @@ export default function Step2Interview({ interviewData, onFinish }) {
               <button
                 onClick={finishInterview}
                 disabled={isSubmitting}
-                className="bg-red-600 hover:bg-red-700 disabled:bg-gray-400 text-white py-3.5 rounded-2xl font-semibold transition active:scale-95"
+                className="bg-red-600 hover:bg-red-700 text-white rounded-xl py-3"
               >
                 Finish Interview
               </button>
