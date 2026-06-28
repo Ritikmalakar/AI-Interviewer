@@ -37,50 +37,69 @@ res.status(200).send({
 
 
 
-export async function login(req,res){
-  try{
-const {email,password}=req.body;
-if(!email||!password){
-  return res.status(400).send({
-    success:false,
-    message:"all fields required"
-  })
-}
-const user=await User.findOne({email});
-if(!user){
-  return res.status(400).send({
-    success:false,
-    message:"user not found"
-  })
-}
-const isMatch=await bcrypt.compare(password,user.password);
-if(!isMatch){
-  return res.status(400).send({
-    success:false,
-    message:"Invalid Credential"
-  })
-}const token=jwt.sign({id:user._id},process.env.JWT_SECRET,{expiresIn:"1d"});
-res.cookie("token",token,{
-  maxAge:7*24*60*60*1000,
-  httpOnly:true
-})
-res.status(200).send({
-  success:true,
-  message:"login success",
-  user,
-  token
-})
-  }catch(error){
+
+
+export async function login(req, res) {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).send({
+        success: false,
+        message: "All fields are required",
+      });
+    }
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(400).send({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
+      return res.status(400).send({
+        success: false,
+        message: "Invalid Credentials",
+      });
+    }
+
+    const token = jwt.sign(
+      { id: user._id },
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" }
+    );
+
+    const isProduction = process.env.NODE_ENV === "production";
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: isProduction,
+      sameSite: isProduction ? "None" : "Lax",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+
+    return res.status(200).send({
+      success: true,
+      message: "Login successful",
+      user,
+      token,
+    });
+
+  } catch (error) {
     console.log(error);
-    res.status(500).send({
-      success:false,
-      message:error.message,
-      error
-    })
+
+    return res.status(500).send({
+      success: false,
+      message: error.message,
+      error,
+    });
   }
 }
-
-
 export async function logout(req,res){
   try{
 res.clearCookie();
