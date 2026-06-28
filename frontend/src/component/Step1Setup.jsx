@@ -111,7 +111,6 @@ export default function Step1Setup({ onStart }) {
       setLoading(false);
     }
   };
-
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
       {/* Heading */}
@@ -128,7 +127,7 @@ export default function Step1Setup({ onStart }) {
           >
             <div className="flex justify-center mb-4">{item.icon}</div>
 
-            <p className="font-semibold text-gray-700 text-sm sm:text-base">
+            <p className="font-semibold text-gray-800 text-sm sm:text-base">
               {item.text}
             </p>
           </div>
@@ -136,19 +135,19 @@ export default function Step1Setup({ onStart }) {
       </div>
 
       {/* Form */}
-      <div className="bg-white rounded-xl shadow-lg p-5 sm:p-6 space-y-5">
+      <div className="bg-white rounded-xl shadow-lg p-5 sm:p-6 space-y-5 text-gray-800">
         <input
           type="text"
           placeholder="Frontend Developer"
           value={role}
           onChange={(e) => setRole(e.target.value)}
-          className="w-full border rounded-lg p-3 text-sm sm:text-base outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full border border-gray-300 rounded-lg p-3 bg-white text-gray-800 placeholder:text-gray-500 outline-none focus:ring-2 focus:ring-blue-500"
         />
 
         <select
           value={experience}
           onChange={(e) => setExperience(e.target.value)}
-          className="w-full border rounded-lg p-3 text-sm sm:text-base outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full border border-gray-300 rounded-lg p-3 bg-white text-gray-800 outline-none focus:ring-2 focus:ring-blue-500"
         >
           <option value="">Select Experience</option>
           <option value="Fresher">Fresher</option>
@@ -160,7 +159,7 @@ export default function Step1Setup({ onStart }) {
         <select
           value={mode}
           onChange={(e) => setMode(e.target.value)}
-          className="w-full border rounded-lg p-3 text-sm sm:text-base outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full border border-gray-300 rounded-lg p-3 bg-white text-gray-800 outline-none focus:ring-2 focus:ring-blue-500"
         >
           <option value="">Select Interview Mode</option>
           <option value="Technical">Technical Interview</option>
@@ -169,38 +168,38 @@ export default function Step1Setup({ onStart }) {
 
         {!analysisDone ? (
           <>
-            <div className="flex items-center gap-2 flex-wrap">
+            <div className="flex items-center gap-2">
               <FaFileUpload className="text-blue-600 text-xl" />
-              <span className="text-sm sm:text-base">Upload Resume (PDF)</span>
+              <span className="font-medium">Upload Resume (PDF)</span>
             </div>
 
             <input
               type="file"
               accept=".pdf"
               onChange={(e) => setResume(e.target.files[0])}
-              className="w-full text-sm"
+              className="w-full border border-gray-300 rounded-lg p-2"
             />
 
             <button
               onClick={handleUploadResume}
               disabled={analyzing}
-              className="w-full bg-green-600 hover:bg-green-700 transition text-white py-3 rounded-lg text-sm sm:text-base disabled:bg-gray-400"
+              className="w-full bg-green-600 hover:bg-green-700 transition text-white py-3 rounded-lg font-semibold disabled:bg-gray-400"
             >
               {analyzing ? "Analyzing..." : "Analyze Resume"}
             </button>
           </>
         ) : (
-          <div className="bg-green-100 border border-green-500 rounded-lg p-4 break-words">
-            <h3 className="font-bold text-green-700 text-base sm:text-lg">
+          <div className="bg-green-100 border border-green-500 rounded-lg p-4">
+            <h3 className="font-bold text-green-700 text-lg">
               ✅ Resume Analysis Completed
             </h3>
 
-            <p className="mt-3 text-sm sm:text-base">
+            <p className="mt-3 break-words">
               <strong>Skills:</strong>{" "}
               {skills.length ? skills.join(", ") : "N/A"}
             </p>
 
-            <p className="mt-2 text-sm sm:text-base">
+            <p className="mt-2 break-words">
               <strong>Projects:</strong>{" "}
               {projects.length ? projects.join(", ") : "N/A"}
             </p>
@@ -210,7 +209,7 @@ export default function Step1Setup({ onStart }) {
         <button
           onClick={handleStart}
           disabled={!analysisDone || loading}
-          className="w-full bg-blue-600 hover:bg-blue-700 transition text-white py-3 rounded-lg text-sm sm:text-base disabled:bg-gray-400"
+          className="w-full bg-blue-600 hover:bg-blue-700 transition text-white py-3 rounded-lg font-semibold disabled:bg-gray-400"
         >
           {loading ? "Starting Interview..." : "Start Interview"}
         </button>
