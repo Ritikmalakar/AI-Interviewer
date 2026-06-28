@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import UserRoutes from "./routes/userRoutes";
+import UserRoutes from "./routes/UserRoutes";
 import Navbar from "./component/Navbar";
 import Footer from "./component/Footer";
 
