@@ -23,15 +23,15 @@ export default function Step1Setup({ onStart }) {
 
   const features = [
     {
-      icon: <FaUser className="text-blue-500 text-3xl" />,
+      icon: <FaUser className="text-blue-500 text-2xl sm:text-3xl" />,
       text: "Choose Role & Experience",
     },
     {
-      icon: <FaMicrophone className="text-green-500 text-3xl" />,
+      icon: <FaMicrophone className="text-green-500 text-2xl sm:text-3xl" />,
       text: "Smart Voice Interview",
     },
     {
-      icon: <FaChartLine className="text-yellow-500 text-3xl" />,
+      icon: <FaChartLine className="text-yellow-500 text-2xl sm:text-3xl" />,
       text: "Performance Analysis",
     },
   ];
@@ -113,36 +113,42 @@ export default function Step1Setup({ onStart }) {
   };
 
   return (
-    <div className="max-w-5xl mx-auto p-6">
-      <h1 className="text-4xl font-bold text-center mb-10">
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      {/* Heading */}
+      <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center text-white mb-8 sm:mb-10">
         AI Interview Setup
       </h1>
 
-      <div className="grid md:grid-cols-3 gap-6 mb-10">
+      {/* Features */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 mb-8 sm:mb-10">
         {features.map((item, index) => (
           <div
             key={index}
-            className="bg-white rounded-xl shadow-lg p-6 text-center"
+            className="bg-white rounded-xl shadow-lg p-5 sm:p-6 text-center hover:shadow-xl transition"
           >
             <div className="flex justify-center mb-4">{item.icon}</div>
-            <p className="font-semibold">{item.text}</p>
+
+            <p className="font-semibold text-gray-700 text-sm sm:text-base">
+              {item.text}
+            </p>
           </div>
         ))}
       </div>
 
-      <div className="bg-white rounded-xl shadow-lg p-6 space-y-5">
+      {/* Form */}
+      <div className="bg-white rounded-xl shadow-lg p-5 sm:p-6 space-y-5">
         <input
           type="text"
           placeholder="Frontend Developer"
           value={role}
           onChange={(e) => setRole(e.target.value)}
-          className="w-full border rounded-lg p-3"
+          className="w-full border rounded-lg p-3 text-sm sm:text-base outline-none focus:ring-2 focus:ring-blue-500"
         />
 
         <select
           value={experience}
           onChange={(e) => setExperience(e.target.value)}
-          className="w-full border rounded-lg p-3"
+          className="w-full border rounded-lg p-3 text-sm sm:text-base outline-none focus:ring-2 focus:ring-blue-500"
         >
           <option value="">Select Experience</option>
           <option value="Fresher">Fresher</option>
@@ -154,7 +160,7 @@ export default function Step1Setup({ onStart }) {
         <select
           value={mode}
           onChange={(e) => setMode(e.target.value)}
-          className="w-full border rounded-lg p-3"
+          className="w-full border rounded-lg p-3 text-sm sm:text-base outline-none focus:ring-2 focus:ring-blue-500"
         >
           <option value="">Select Interview Mode</option>
           <option value="Technical">Technical Interview</option>
@@ -163,38 +169,38 @@ export default function Step1Setup({ onStart }) {
 
         {!analysisDone ? (
           <>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-wrap">
               <FaFileUpload className="text-blue-600 text-xl" />
-              <span>Upload Resume (PDF)</span>
+              <span className="text-sm sm:text-base">Upload Resume (PDF)</span>
             </div>
 
             <input
               type="file"
               accept=".pdf"
               onChange={(e) => setResume(e.target.files[0])}
-              className="w-full"
+              className="w-full text-sm"
             />
 
             <button
               onClick={handleUploadResume}
               disabled={analyzing}
-              className="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 disabled:bg-gray-400"
+              className="w-full bg-green-600 hover:bg-green-700 transition text-white py-3 rounded-lg text-sm sm:text-base disabled:bg-gray-400"
             >
               {analyzing ? "Analyzing..." : "Analyze Resume"}
             </button>
           </>
         ) : (
-          <div className="bg-green-100 border border-green-500 rounded-lg p-4">
-            <h3 className="font-bold text-green-700">
+          <div className="bg-green-100 border border-green-500 rounded-lg p-4 break-words">
+            <h3 className="font-bold text-green-700 text-base sm:text-lg">
               ✅ Resume Analysis Completed
             </h3>
 
-            <p className="mt-2">
+            <p className="mt-3 text-sm sm:text-base">
               <strong>Skills:</strong>{" "}
               {skills.length ? skills.join(", ") : "N/A"}
             </p>
 
-            <p className="mt-2">
+            <p className="mt-2 text-sm sm:text-base">
               <strong>Projects:</strong>{" "}
               {projects.length ? projects.join(", ") : "N/A"}
             </p>
@@ -204,7 +210,7 @@ export default function Step1Setup({ onStart }) {
         <button
           onClick={handleStart}
           disabled={!analysisDone || loading}
-          className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 disabled:bg-gray-400"
+          className="w-full bg-blue-600 hover:bg-blue-700 transition text-white py-3 rounded-lg text-sm sm:text-base disabled:bg-gray-400"
         >
           {loading ? "Starting Interview..." : "Start Interview"}
         </button>
